@@ -7,7 +7,7 @@ const Timer: React.FC = () => {
 
     return (
         <div>
-            <h1>Timer: {time}</h1>
+            <h1>{time}</h1>
             <button onClick={start} disabled={isRunning}>
                 Start
             </button>
