@@ -7,7 +7,8 @@ import {
   createHashRouter,
 } from "react-router-dom";
 
-import "./index.css";
+import "./index.scss";
+
 import TimersView from "./views/TimersView";
 import DocumentationView from "./views/DocumentationView";
 

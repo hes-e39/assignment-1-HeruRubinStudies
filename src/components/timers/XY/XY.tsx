@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
+import styles from '../timer-common.module.scss';
 
 interface XYTimerProps {
     milliseconds: number;
@@ -71,12 +72,12 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning }) => {
         }
     };
 
-    return (
-        <div>
-            <h1>XY Time Remaining: {formatTime(remainingTime)}</h1>
-            <h2>Rounds Left: {roundsLeft}</h2>
-        </div>
-    );
+        return (
+            <div className={styles.actionArea}>
+                <h1>XY Time Remaining: {formatTime(remainingTime)}</h1>
+                <h2>Rounds Left: {roundsLeft}</h2>
+            </div>
+        );
 };
 
 export default XY;
