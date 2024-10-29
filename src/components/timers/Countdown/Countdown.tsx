@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
+import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay.tsx";
 
 interface CountdownProps {
     milliseconds: number;
@@ -36,30 +37,11 @@ const Countdown: React.FC<CountdownProps> = ({
         }
     }, [isRunning, milliseconds, initialTime]);
 
-    // Function to format the time
-    const formatTime = (milliseconds: number): string => {
-        const totalHundredths = Math.floor(milliseconds / 10);
-        const hundredths = totalHundredths % 100;
-        const seconds = Math.floor(totalHundredths / 100) % 60;
-        const minutes = Math.floor(totalHundredths / 6000) % 60;
-        const hours = Math.floor(totalHundredths / 360000);
-
-        if (hours > 0) {
-            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
-                2,
-                '0'
-            )}:${String(seconds).padStart(2, '0')}:${String(hundredths).padStart(2, '0')}`;
-        } else {
-            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
-                2,
-                '0'
-            )}:${String(hundredths).padStart(2, '0')}`;
-        }
-    };
 
     return (
         <div>
-            <h1>Countdown: {formatTime(remainingTime)}</h1>
+            <h1>Countdown: </h1>
+            <FormattedTimeDisplay milliseconds={remainingTime} />
         </div>
     );
 };

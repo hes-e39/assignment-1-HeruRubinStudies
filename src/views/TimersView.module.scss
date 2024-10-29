@@ -1,0 +1,14 @@
+.outerContainer{
+   border: 1px solid #80c87b;
+   display: flex;
+   color: #dddddd;
+   justify-content: center;
+}
+
+.tabMenuMain{
+   position: fixed;
+   z-index: 1000;
+   bottom: 10vh;
+   left: auto;
+   right: auto;
+}

@@ -8,13 +8,14 @@ import {
 } from "react-router-dom";
 
 import "./index.scss";
+import mainStyles from "./main.module.scss";
 
 import TimersView from "./views/TimersView";
 import DocumentationView from "./views/DocumentationView";
 
 const PageIndex = () => {
   return (
-    <div>
+    <main className={mainStyles.mainContainer} >
       <ul>
         <li>
           <Link to="/">Timers</Link>
@@ -24,7 +25,7 @@ const PageIndex = () => {
         </li>
       </ul>
       <Outlet />
-    </div>
+    </main>
   );
 };
 

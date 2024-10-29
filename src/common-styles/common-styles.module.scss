@@ -1,0 +1,25 @@
+.flexVert {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexVertCenter {
+  align-items: center;
+}
+
+.timerDisplay {
+  font-size: 11vh;
+}
+
+.dataFont{
+  font-family: "itc-avant-garde-gothic-pro", sans-serif;
+  font-style: normal;
+}
+
+.fontBold{
+  font-weight: 700;
+}
+
+.fontBook{
+  font-weight: 300;
+}
