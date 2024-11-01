@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  Link,
   Outlet,
   RouterProvider,
   createHashRouter,
@@ -9,22 +8,23 @@ import {
 
 import "./index.scss";
 import mainStyles from "./main.module.scss";
+import commonStyles from "./common-styles/common-styles.module.scss";
 
-import TimersView from "./views/TimersView";
+import TimersView from "./views/Timers/TimersView.tsx";
 import DocumentationView from "./views/DocumentationView";
+import NavMenu from "./components/menus/NavMenu/NavMenu.tsx";
+import ListMenu from "./components/menus/ListMenu/ListMenu.tsx";
 
 const PageIndex = () => {
   return (
-    <main className={mainStyles.mainContainer} >
-      <ul>
-        <li>
-          <Link to="/">Timers</Link>
-        </li>
-        <li>
-          <Link to="/docs">Documentation</Link>
-        </li>
-      </ul>
-      <Outlet />
+    <main className={`${mainStyles.mainContainer} ${commonStyles.flexVertCenter} ${commonStyles.flexVert} ${commonStyles.flexHorzCenter}`} >
+      <NavMenu>
+        <ListMenu menuItems={[
+            {label: "Timers", link: "/", iconName:"timers"},
+            {label: "Documentation", link: "/docs", iconName:"tabata"},
+        ]}/>
+      </NavMenu>
+      <Outlet/>
     </main>
   );
 };
@@ -32,11 +32,11 @@ const PageIndex = () => {
 const router = createHashRouter([
   {
     path: "/",
-    element: <PageIndex />,
+    element: <PageIndex/>,
     children: [
       {
         index: true,
-        element: <TimersView />,
+        element: <TimersView/>,
       },
       {
         path: "/docs",

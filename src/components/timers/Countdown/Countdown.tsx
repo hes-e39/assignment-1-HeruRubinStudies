@@ -1,8 +1,9 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay.tsx";
+import type {TimerFuncProps} from "../../menus/TimerControls/TimerControls.tsx";
 
-interface CountdownProps {
+interface CountdownProps extends TimerFuncProps{
     milliseconds: number;
     isRunning: boolean;
     initialTime: number; // The initial countdown time in milliseconds

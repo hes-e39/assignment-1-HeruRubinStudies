@@ -1,0 +1,20 @@
+.actionArea{
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  color: white;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.actionBtn{
+  border: 1px solid white;
+  padding: 3rem;
+  border-radius: 100vw;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

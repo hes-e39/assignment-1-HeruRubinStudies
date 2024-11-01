@@ -1,8 +1,10 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import styles from '../timer-common.module.scss';
+import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay.tsx";
+import type {TimerFuncProps} from "../../menus/TimerControls/TimerControls.tsx";
 
-interface XYTimerProps {
+interface XYTimerProps extends TimerFuncProps{
     milliseconds: number;
     isRunning: boolean;
 }
@@ -51,31 +53,11 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning }) => {
         }
     }, [milliseconds, isRunning, isXYStopped, roundsLeft, roundStartTime]);
 
-    // Function to format the time
-    const formatTime = (milliseconds: number): string => {
-        const totalHundredths = Math.floor(milliseconds / 10);
-        const hundredths = totalHundredths % 100;
-        const seconds = Math.floor(totalHundredths / 100) % 60;
-        const minutes = Math.floor(totalHundredths / 6000) % 60;
-        const hours = Math.floor(totalHundredths / 360000);
-
-        if (hours > 0) {
-            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
-                2,
-                '0'
-            )}:${String(seconds).padStart(2, '0')}:${String(hundredths).padStart(2, '0')}`;
-        } else {
-            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
-                2,
-                '0'
-            )}:${String(hundredths).padStart(2, '0')}`;
-        }
-    };
 
         return (
             <div className={styles.actionArea}>
-                <h1>XY Time Remaining: {formatTime(remainingTime)}</h1>
                 <h2>Rounds Left: {roundsLeft}</h2>
+                <FormattedTimeDisplay milliseconds={remainingTime}/>
             </div>
         );
 };

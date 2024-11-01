@@ -1,18 +1,18 @@
-
-
 import type React from 'react';
 import { useState } from 'react';
+import Icon, { type iconGraphic } from '../../Icons/Icon.tsx';
 import styles from './TabMenu.module.scss';
+import commonStyles from '../../Icons/commonIcons.module.scss';
 
-interface MenuItem {
+export interface MenuItem {
     label: string;
-    iconName: string; // This will be passed to an Icon component later
+    iconName: iconGraphic; // This will be passed to an Icon component later
     onClick: () => void; // Function to control content visibility or other logic externally
 }
 
 interface TabMenuProps {
     items: MenuItem[];
-    classes? : string;
+    classes?: string;
 }
 
 const TabMenu: React.FC<TabMenuProps> = ({ items, classes }) => {
@@ -27,15 +27,16 @@ const TabMenu: React.FC<TabMenuProps> = ({ items, classes }) => {
         <div className={`${styles.tabMenuContainer} ${classes}`}>
             {items.map((item, index) => (
                 <div
+                    style={{
+                        width: `${(100 / items.length).toString()}%`,
+                    }}
                     key={index}
-                    className={`${styles.tabItem} ${
-                        selectedIndex === index ? styles.active : ''
-                    }`}
+                    className={`${styles.tabItem} ${selectedIndex === index ? styles.active : ''}`}
                     onClick={() => handleItemClick(index, item.onClick)}
                 >
-                    {/* You can replace this with an Icon component later */}
-                    <span className={styles.iconPlaceholder}>{item.iconName}</span>
+                    <Icon iconName={item.iconName} classes={`${styles.iconContainer} ${selectedIndex === index ? commonStyles.selectedIcon : ''}`} />
                     <span className={styles.tabLabel}>{item.label}</span>
+                    <div className={styles.indicator} />
                 </div>
             ))}
         </div>

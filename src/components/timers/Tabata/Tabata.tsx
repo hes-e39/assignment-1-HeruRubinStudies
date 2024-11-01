@@ -1,36 +1,44 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
+import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay";
+import Icon from "../../Icons/Icon";
+import styles from "./Tabata.module.scss";
+import commonIconStyles from "../../Icons/commonIcons.module.scss";
+import TimerControls from "../../menus/TimerControls/TimerControls.tsx";
+import type {TimerFuncProps} from "../../menus/TimerControls/TimerControls.tsx";
 
-interface PomodoroTimerProps {
+interface TabataProps extends TimerFuncProps{
     milliseconds: number;
     isRunning: boolean;
 }
 
-const Tabata: React.FC<PomodoroTimerProps> = ({ milliseconds, isRunning }) => {
-    // Constants for the Pomodoro timer
-    const totalRounds = 12; // Total number of Pomodoro sessions
-    const workDuration = 1 * 60 * 1000; // Work phase duration in milliseconds (25 minutes)
-    const breakDuration = 0.5 * 60 * 1000; // Break phase duration in milliseconds (5 minutes)
+const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, start }) => {
+    const totalRounds = 5;
+    const workDuration = 1 * 60 * 1000;
+    const breakDuration = 0.5 * 60 * 1000;
 
-    // State variables
     const [roundsLeft, setRoundsLeft] = useState(totalRounds);
     const [phase, setPhase] = useState<'Work' | 'Break'>('Work');
     const [phaseStartTime, setPhaseStartTime] = useState(0);
     const [remainingTime, setRemainingTime] = useState(workDuration);
     const [isPomodoroStopped, setIsPomodoroStopped] = useState(false);
+    const [completedRounds, setCompletedRounds] = useState<number[]>([]);
 
-    // Reset state when the timer is reset
     useEffect(() => {
         if (milliseconds === 0 && !isRunning) {
-            setRoundsLeft(totalRounds);
-            setPhase('Work');
-            setPhaseStartTime(0);
-            setRemainingTime(workDuration);
-            setIsPomodoroStopped(false);
+            resetTabata();
         }
     }, [milliseconds, isRunning]);
 
-    // Update remaining time and handle phase transitions
+    const resetTabata = () => {
+        setRoundsLeft(totalRounds);
+        setPhase('Work');
+        setPhaseStartTime(0);
+        setRemainingTime(workDuration);
+        setIsPomodoroStopped(false);
+        setCompletedRounds([]);
+    };
+
     useEffect(() => {
         if (!isPomodoroStopped && isRunning && roundsLeft > 0) {
             const elapsedTime = milliseconds - phaseStartTime;
@@ -39,62 +47,80 @@ const Tabata: React.FC<PomodoroTimerProps> = ({ milliseconds, isRunning }) => {
 
             if (timeLeft <= 0) {
                 if (phase === 'Work') {
-                    // Transition to Break Phase
                     setPhase('Break');
                     setPhaseStartTime(milliseconds);
                     setRemainingTime(breakDuration);
                 } else {
-                    // Completed Break Phase
                     if (roundsLeft - 1 > 0) {
-                        // Start next Work Phase
                         setRoundsLeft(roundsLeft - 1);
+                        setCompletedRounds((prev) => [...prev, totalRounds - roundsLeft]);
                         setPhase('Work');
                         setPhaseStartTime(milliseconds);
                         setRemainingTime(workDuration);
                     } else {
-                        // No rounds left; stop the Pomodoro timer
                         setRoundsLeft(0);
                         setRemainingTime(0);
                         setIsPomodoroStopped(true);
                     }
                 }
             } else {
-                // Update remaining time for the current phase
                 setRemainingTime(timeLeft);
             }
         }
-    }, [
-        milliseconds,
-        isRunning,
-        isPomodoroStopped,
-        roundsLeft,
-        phase,
-        phaseStartTime
-    ]);
-
-    // Function to format the time
-    const formatTime = (milliseconds: number): string => {
-        const totalSeconds = Math.floor(milliseconds / 1000);
-        const seconds = totalSeconds % 60;
-        const minutes = Math.floor(totalSeconds / 60) % 60;
-        const hours = Math.floor(totalSeconds / 3600);
-
-        if (hours > 0) {
-            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
-                2,
-                '0'
-            )}:${String(seconds).padStart(2, '0')}`;
-        } else {
-            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
-    };
+    }, [milliseconds, isRunning, isPomodoroStopped, roundsLeft, phase, phaseStartTime]);
 
     return (
-        <div>
-            <h1>Pomodoro Timer</h1>
-            <h2>Current Phase: {phase}</h2>
-            <h2>Time Remaining: {formatTime(remainingTime)}</h2>
-            <h2>Rounds Left: {roundsLeft}</h2>
+        <div className={styles.tabataContainer}>
+            {roundsLeft > 0 ? (
+                <>
+
+                    <h2>
+                        Time Remaining: <FormattedTimeDisplay milliseconds={remainingTime} />
+                    </h2>
+                    <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
+                        <div>
+                            <h2>Current Phase: {phase}</h2>
+                            <h2>Rounds Left: {roundsLeft}</h2>
+                            <div className={styles.roundsDisplay}>
+                                {Array.from({length: totalRounds}).map((_, index) => (
+                                    <div
+                                        key={index}
+                                        className={`${styles.roundSquare} ${
+                                            completedRounds.includes(index) ? styles.completedRound : ''
+                                        }`}
+                                    >
+                                        {completedRounds.includes(index) ? (
+                                            <Icon iconName="checkmark"
+                                                  classes={`${styles.iconContainer} ${commonIconStyles.selectedIcon} ${commonIconStyles.strokedHeavy}`}/>
+                                        ) : (
+                                            <div
+                                                className={styles.roundIndicator}
+                                                style={{
+                                                    height:
+                                                        index === totalRounds - roundsLeft
+                                                            ? `${(remainingTime / workDuration) * 100}%`
+                                                            : '100%',
+                                                }}
+                                            />
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </TimerControls>
+
+                </>
+            ) : (
+                <div className={styles.completeMessage}>
+                    <p>
+                        Complete! {totalRounds} rounds, {workDuration / 60000} minutes each, total time:{' '}
+                        {(totalRounds * workDuration) / 60000} minutes
+                    </p>
+                    <button className={styles.repeatButton} onClick={resetTabata}>
+                        Repeat Tabata
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

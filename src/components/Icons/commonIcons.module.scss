@@ -1,0 +1,71 @@
+.dark {
+  stroke: #010101;
+}
+
+.medColor{
+  stroke: #374665;
+}
+
+.filledDark{
+  fill: #010101;
+}
+
+.filledMed{
+  fill: #374665;
+}
+
+.selectedIcon{
+  .dark{
+    stroke: #2BB9E5;
+  }
+
+  .filledDark{
+    fill: #2BB9E5;
+  }
+}
+
+.icon{
+  height: 100%;
+  width: 100%;
+}
+
+.strokedHeavy{
+  stroke-width: 2px;
+}
+
+.stroked {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1px;
+}
+
+.filledHighlight{
+  fill : white;
+}
+
+.cls-1 {
+  fill: #fff;
+}
+
+.cls-1, .cls-2 {
+  stroke: #010101;
+}
+
+.cls-1, .cls-2, .cls-3 {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+}
+
+.cls-2, .cls-3 {
+  fill: none;
+}
+
+.cls-3 {
+  stroke: #49b749;
+}
+
+.cls-4 {
+  fill: #010101;
+}

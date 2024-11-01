@@ -1,9 +1,9 @@
 .outerContainer{
-   border: 1px solid #80c87b;
    display: flex;
    color: #dddddd;
    justify-content: center;
 }
+
 
 .tabMenuMain{
    position: fixed;
@@ -11,4 +11,8 @@
    bottom: 10vh;
    left: auto;
    right: auto;
+   background-color: white;
+   color: black;
+   border-radius: 12px;
+   filter: drop-shadow(6px 10px 6px black);
 }
