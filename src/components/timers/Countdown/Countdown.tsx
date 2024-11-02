@@ -40,8 +40,12 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
         setRemainingTime(initialTime);
         setIsCountdownStopped(false);
         reset(); // Reset external timer state
-        start(); // Start the countdown again
     };
+
+    const repeatTimer = ()=>{
+        reset(); // Reset external timer state
+        start(); // Start the countdown again
+    }
 
     return (
         <div>
@@ -54,7 +58,7 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
                 <CompletionMessage
                     totalRounds={1}
                     roundDuration={initialTime}
-                    onRepeat={resetCountdown} // Use resetCountdown to reset and start
+                    onRepeat={repeatTimer} // Use resetCountdown to reset and start
                 />
             )}
         </div>

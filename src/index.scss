@@ -17,6 +17,26 @@ body {
   background-color: #0d1117;
 }
 
+
+
+h2, button{
+  font-family: "articulat-cf", sans-serif;
+  font-style: normal;
+  user-select: none;
+}
+
+h2, button, span{
+  font-weight: 400;
+}
+.hvy{
+  font-family: "articulat-heavy-cf", sans-serif;
+  font-weight: 900;
+}
+
+button{
+  text-transform: uppercase;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

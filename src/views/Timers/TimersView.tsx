@@ -13,30 +13,43 @@ import commonStyles from "../../common-styles/common-styles.module.scss"
 type timerType = "XY" | "Stopwatch" | "Countdown" | "Tabata";
 
 const Timer: React.FC = () => {
-    const menuItems : MenuItem[] = [
+    const tabMenuItems : MenuItem[] = [
         {
             label: 'Stopwatch',
             iconName: 'stopwatch',
-            onClick: () => setActiveTimer("Stopwatch"),
+            onClick: () => {
+                reset()
+                setActiveTimer("Stopwatch")
+            },
         },
         {
             label: 'Countdown',
             iconName: 'countdown',
-            onClick: () => setActiveTimer("Countdown"),
+            onClick: () => {
+                reset()
+                setActiveTimer("Countdown")
+            },
         },
         {
             label: 'XY',
             iconName: 'xy',
-            onClick: () => setActiveTimer("XY"),
+            onClick: () => {
+                reset()
+                setActiveTimer("XY")
+            },
         },
         {
             label: 'Tabata',
             iconName: 'tabata',
-            onClick: () => setActiveTimer("Tabata"),
+            onClick: () =>{
+                reset()
+                setActiveTimer("Tabata")
+            },
         },
     ];
     const { milliseconds, isRunning, start, pause, reset } = useTimer();
-    const [activeTimer, setActiveTimer] = useState<timerType>("Countdown");
+    const [activeTimer, setActiveTimer] = useState<timerType>("Stopwatch");
+
     return (
         <div className={`${styles.outerContainer} ${commonStyles.flexVert} ${commonStyles.flexVertCenter}`}>
             <div>
@@ -53,9 +66,7 @@ const Timer: React.FC = () => {
                     <Tabata milliseconds={milliseconds} isRunning={isRunning}  start={start} pause={pause} reset={reset}  />
                 )}
             </div>
-
-
-            <TabMenu classes={styles.tabMenuMain} items={menuItems}  />
+            <TabMenu classes={styles.tabMenuMain} items={tabMenuItems}  />
         </div>
     );
 };

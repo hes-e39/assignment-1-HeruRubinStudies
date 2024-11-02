@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import styles from '../timer-common.module.scss';
+import commonTimerStyles from '../timer-common.module.scss';
 import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay";
 import TimerControls from "../../menus/TimerControls/TimerControls";
 import type { TimerFuncProps } from "../../menus/TimerControls/TimerControls";
@@ -64,14 +65,16 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
                     <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
-                        <h2>Rounds Left: {roundsLeft}</h2>
-                        <Rounds
-                            completedRounds={completedRounds}
-                            roundsLeft={roundsLeft}
-                            totalRounds={totalRounds}
-                            workDuration={roundDuration}
-                            remainingTime={remainingTime}
-                        />
+                        <div className={commonTimerStyles.readout}>
+                            <h2>Rounds Left: {roundsLeft}</h2>
+                            <Rounds
+                                completedRounds={completedRounds}
+                                roundsLeft={roundsLeft}
+                                totalRounds={totalRounds}
+                                workDuration={roundDuration}
+                                remainingTime={remainingTime}
+                            />
+                        </div>
                     </TimerControls>
                 </>
             ) : (

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import DocumentComponent from "../components/documentation/DocumentComponent";
+import DocumentComponent from "../../components/documentation/DocumentComponent.tsx";
 
-import Loading from "../components/generic/Loading";
+import Loading from "../../components/generic/Loading.tsx";
 
 const Container = styled.div`
   display: flex;

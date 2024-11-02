@@ -7,6 +7,8 @@ const useTimer = () => {
 
     // Start or resume the timer
     const start = useCallback(() => {
+        // biome-ignore lint/suspicious/noConsoleLog: <explanation>
+        console.log("start called"); // Track start calls
         if (!isRunning) {
             setIsRunning(true);
             timerRef.current = window.setInterval(() => {

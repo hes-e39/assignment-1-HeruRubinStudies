@@ -11,7 +11,7 @@ import mainStyles from "./main.module.scss";
 import commonStyles from "./common-styles/common-styles.module.scss";
 
 import TimersView from "./views/Timers/TimersView.tsx";
-import DocumentationView from "./views/DocumentationView";
+import DocumentationView from "./views/Documentation/DocumentationView.tsx";
 import NavMenu from "./components/menus/NavMenu/NavMenu.tsx";
 import ListMenu from "./components/menus/ListMenu/ListMenu.tsx";
 
@@ -21,7 +21,7 @@ const PageIndex = () => {
       <NavMenu>
         <ListMenu menuItems={[
             {label: "Timers", link: "/", iconName:"timers"},
-            {label: "Documentation", link: "/docs", iconName:"tabata"},
+            {label: "Documentation", link: "/docs", iconName:"documentation"},
         ]}/>
       </NavMenu>
       <Outlet/>
