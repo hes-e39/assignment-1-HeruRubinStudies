@@ -41,15 +41,12 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
     return (
         <div className={styles.stopwatchContainer}>
             <FormattedTimeDisplay milliseconds={milliseconds} />
-            <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
-                {
-                    isRunning &&
-                        <button onClick={addLap}>Lap</button>
-                }
+            <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}> 
                 {/* Render the 3 most recent laps */}
                 {
                     laps.length > 0 &&
                     <div className={styles.lapsContainer}>
+                        <button className={`${isRunning ? '' : styles.hidden}`} onClick={addLap}>Lap</button>
                         <ul className={styles.lapList}>
                             {laps.slice(0, 3).map((lap, index) => (
                                 <li key={index}>{lap}</li>
