@@ -11,13 +11,14 @@
 
 .tabItem {
   padding: 10px 20px;
-  min-width: 60px;
+  min-width: 80px;
   cursor: pointer;
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
   flex-direction: column;
   position: relative;
+  background: white linear-gradient(0deg, #dedcdc 0%, white 45%, white 50%, white 80%, #eeeeee 100%);
 
   .indicator {
     background-color: #2BB9E5;
@@ -35,8 +36,11 @@
 }
 
 .tabItem.active {
+  box-shadow: inset 1px 1px 29px 0px rgba(0,0,0,0.25);
+  background: white;
   .tabLabel {
     font-weight: bold;
+    color: #2BB9E5;
   }
 
   .indicator {

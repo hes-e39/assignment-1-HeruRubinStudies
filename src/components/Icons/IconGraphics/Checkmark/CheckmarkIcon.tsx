@@ -1,6 +1,7 @@
 import type React from "react";
 import commonStyles from '../../commonIcons.module.scss';
-import type {StylingBase} from "../../Icon.tsx";
+import type {StylingBase} from "../../../DataInterfaces/CommonInterfaces.tsx";
+
 
 const CheckmarkIcon:React.FC<StylingBase> = ({classes}) => {
     return (

@@ -2,6 +2,7 @@ import type React from "react";
 import styles from "./TimerControls.module.scss";
 import type {StylingBase} from "../../DataInterfaces/CommonInterfaces.tsx";
 
+
 export interface TimerFuncProps{
     isRunning: boolean;
     start: ()=>void;
@@ -19,7 +20,7 @@ const TimerControls: React.FC<TimerControlsProps> = ({isRunning, start, pause, r
         <div className={styles.actionArea}>
             {
                 !isRunning &&
-                <button onClick={start} className={styles.actionBtn} disabled={isRunning}>
+                <button onClick={start} className={`${styles.startButton}  ${styles.actionBtn} `} disabled={isRunning}>
                     Start
                 </button>
             }

@@ -1,21 +1,22 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay";
-import Icon from "../../Icons/Icon";
-import styles from "./Tabata.module.scss";
-import commonIconStyles from "../../Icons/commonIcons.module.scss";
-import TimerControls from "../../menus/TimerControls/TimerControls.tsx";
-import type {TimerFuncProps} from "../../menus/TimerControls/TimerControls.tsx";
+import FormattedTimeDisplay from '../../generic/FormattedTimeDisplay';
+import TimerControls from '../../menus/TimerControls/TimerControls';
+import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
+import Rounds from '../../visualization/Rounds/Rounds';
+import styles from './Tabata.module.scss';
+import commonTimerStyles from '../timer-common.module.scss';
+import CompletionMessage from '../../visualization/CompletionMessage/CompletionMessage.tsx';
 
-interface TabataProps extends TimerFuncProps{
+interface TabataProps extends TimerFuncProps {
     milliseconds: number;
     isRunning: boolean;
 }
 
 const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, start }) => {
     const totalRounds = 5;
-    const workDuration = 1 * 60 * 1000;
-    const breakDuration = 0.5 * 60 * 1000;
+    const workDuration = 10 * 1000;
+    const breakDuration = 0.5 * 10 * 1000;
 
     const [roundsLeft, setRoundsLeft] = useState(totalRounds);
     const [phase, setPhase] = useState<'Work' | 'Break'>('Work');
@@ -53,7 +54,7 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
                 } else {
                     if (roundsLeft - 1 > 0) {
                         setRoundsLeft(roundsLeft - 1);
-                        setCompletedRounds((prev) => [...prev, totalRounds - roundsLeft]);
+                        setCompletedRounds(prev => [...prev, totalRounds - roundsLeft]);
                         setPhase('Work');
                         setPhaseStartTime(milliseconds);
                         setRemainingTime(workDuration);
@@ -73,53 +74,26 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
         <div className={styles.tabataContainer}>
             {roundsLeft > 0 ? (
                 <>
-
                     <h2>
-                        Time Remaining: <FormattedTimeDisplay milliseconds={remainingTime} />
+                        <FormattedTimeDisplay milliseconds={remainingTime} />
                     </h2>
                     <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
-                        <div>
+                        <div className={commonTimerStyles.readout}>
                             <h2>Current Phase: {phase}</h2>
                             <h2>Rounds Left: {roundsLeft}</h2>
-                            <div className={styles.roundsDisplay}>
-                                {Array.from({length: totalRounds}).map((_, index) => (
-                                    <div
-                                        key={index}
-                                        className={`${styles.roundSquare} ${
-                                            completedRounds.includes(index) ? styles.completedRound : ''
-                                        }`}
-                                    >
-                                        {completedRounds.includes(index) ? (
-                                            <Icon iconName="checkmark"
-                                                  classes={`${styles.iconContainer} ${commonIconStyles.selectedIcon} ${commonIconStyles.strokedHeavy}`}/>
-                                        ) : (
-                                            <div
-                                                className={styles.roundIndicator}
-                                                style={{
-                                                    height:
-                                                        index === totalRounds - roundsLeft
-                                                            ? `${(remainingTime / workDuration) * 100}%`
-                                                            : '100%',
-                                                }}
-                                            />
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
+                            <Rounds
+                                completedRounds={completedRounds}
+                                roundsLeft={roundsLeft}
+                                totalRounds={totalRounds}
+                                workDuration={workDuration}
+                                remainingTime={remainingTime}
+                                breakDuration={breakDuration}
+                            />
                         </div>
                     </TimerControls>
-
                 </>
             ) : (
-                <div className={styles.completeMessage}>
-                    <p>
-                        Complete! {totalRounds} rounds, {workDuration / 60000} minutes each, total time:{' '}
-                        {(totalRounds * workDuration) / 60000} minutes
-                    </p>
-                    <button className={styles.repeatButton} onClick={resetTabata}>
-                        Repeat Tabata
-                    </button>
-                </div>
+                <CompletionMessage totalRounds={totalRounds} roundDuration={workDuration} onRepeat={resetTabata} />
             )}
         </div>
     );

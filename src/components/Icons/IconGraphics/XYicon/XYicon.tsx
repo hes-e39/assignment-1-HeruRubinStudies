@@ -6,7 +6,7 @@ const XYicon: React.FC = () => {
         <svg viewBox="0 0 60.58 60.58" width="100%" height="100%">
             <title>XYicon</title>
             <g className={`${commonIconStyles.stroked} ${commonIconStyles.dark}`}>
-                <circle cx="30.71" cy="34.57" r="24.04" />
+                <circle className={`${commonIconStyles.filledLight}`} cx="30.71" cy="34.57" r="24.04" />
                 <rect x="26.56" y="2.98" width="8.3" height="4.77" />
                 <line x1="30.71" y1="7.98" x2="30.71" y2="10.53" />
                 <line x1="31.25" y1="42.06" x2="31.25" y2="53.58" />
