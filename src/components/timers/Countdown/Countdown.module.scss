@@ -1,6 +1,13 @@
 .countdown-container {
   text-align: center;
 }
+.countDownArea{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 12px;
+}
 
 .progressBarContainer{
   width: 100%;

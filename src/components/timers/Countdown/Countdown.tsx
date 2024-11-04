@@ -6,7 +6,9 @@ import CompletionMessage from "../../visualization/CompletionMessage/CompletionM
 
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
 import styles from './Countdown.module.scss';
+import commonStyles from '../../../main.module.scss';
 import Modal from "../../generic/Modal/Modal.tsx";
+import TButton from "../../generic/Button/TButton.tsx";
 
 interface CountdownProps extends TimerFuncProps {
     milliseconds: number;
@@ -61,12 +63,15 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
                     <TimerControls reset={resetCountdown} isRunning={isRunning} pause={pause} start={start}>
-                        <button onClick={toggleModal}>Configure</button> {/* Configure button */}
-                        <div className={styles.progressBarContainer}>
-                            <div
-                                className={styles.progressBar}
-                                style={{ width: `${progressPercentage}%` }}
-                            />
+                        <div className={styles.countDownArea}>
+                            <TButton actionFunc={toggleModal} classes={commonStyles.spacer} btnType="small-rect" label="Configure"/>
+                            <div className={styles.progressBarContainer}>
+                                <div
+                                    className={styles.progressBar}
+                                    style={{width: `${progressPercentage}%`}}
+                                />
+                            </div>
+                            <TButton actionFunc={toggleModal} btnType="small-rect" label="Configure"/>
                         </div>
                     </TimerControls>
                 </>
@@ -83,8 +88,7 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
 
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
-                <Modal closeFunc={toggleModal} hasCloseBtn={true}>
-                    <h2>Configure Countdown</h2>
+                <Modal title="Configure Countdown" closeFunc={toggleModal} hasCloseBtn={true}>
                     <label>
                         Duration (ms):
                         <input

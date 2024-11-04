@@ -1,27 +1,28 @@
-import type React from "react";
-import styles from "./Modal.module.scss";
-import TButton from "../Button/TButton.tsx";
+import type React from 'react';
+import styles from './Modal.module.scss';
+import commonStyles from '../../../main.module.scss';
+import TButton from '../Button/TButton.tsx';
 
-export interface ModalProps{
-    children : React.ReactNode;
+export interface ModalProps {
+    children: React.ReactNode;
     hasCloseBtn?: boolean;
     closeFunc?: () => void;
+    title?: string;
 }
 
-const Modal : React.FC<ModalProps> = ({children, hasCloseBtn, closeFunc}) => {
-    return(
+const Modal: React.FC<ModalProps> = ({ children, hasCloseBtn, closeFunc, title }) => {
+    return (
         <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
-                {
-                    hasCloseBtn &&
-                    <div className={styles.titleBar}>
-                        <TButton actionFunc={closeFunc} btnType="round-small" icon="close-x" hoverAni="grow" />
-                    </div>
-                }
+                <div className={styles.titleBar}>
+                    {hasCloseBtn && <TButton classes={commonStyles.spacer} btnType="round-small" icon="close-x" />}
+                    {title && <h2>{title}</h2>}
+                    {hasCloseBtn && <TButton actionFunc={closeFunc} btnType="round-small" icon="close-x" hoverAni="grow" />}
+                </div>
                 {children}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Modal;
