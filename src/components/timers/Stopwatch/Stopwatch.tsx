@@ -5,6 +5,8 @@ import TimerControls from '../../menus/TimerControls/TimerControls';
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
 import './Stopwatch.module.scss';
 import styles from './Stopwatch.module.scss';
+import Modal from "../../generic/Modal/Modal.tsx";
+import TButton from "../../generic/Button/TButton.tsx";
 
 interface StopWatchProps extends TimerFuncProps {
     milliseconds: number;
@@ -42,56 +44,53 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
         <div className={styles.stopwatchContainer}>
             <FormattedTimeDisplay milliseconds={milliseconds} />
             <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
-                {/* Render the 3 most recent laps */}
-                {
-                    laps.length > 0 &&
-                    <div className={styles.lapsContainer}>
-                        <button className={`${isRunning ? '' : styles.hidden}`} onClick={addLap}>Lap</button>
-                        <ul className={styles.lapList}>
-                            {laps.slice(0, 3).map((lap, index) => (
-                                <li key={index}>{lap}</li>
-                            ))}
-                            {
-                                laps.length > 3 &&
-                                <li>
-                                    <span>({laps.length - 3} ) more laps</span>
-                                </li>
-                            }
-                        </ul>
-
-                        {/* Show extra laps label if there are more than 3 laps */}
-                        {
-                            laps.length > 0 &&
-                            <div className={styles.lapActionsArea}>
-                                {laps.length > 3 && (
-                                    <div className={styles.extraLaps}>
-
-                                        <button onClick={toggleModal}>View All</button>
-                                    </div>
-                                )}
+                <div className={styles.lapsControlsArea}>
+                    <TButton classes={`${isRunning ? '' : styles.hidden}`} btnType="small-rect" label="Lap" icon="plus" actionFunc={addLap} />
+                    {
+                        laps.length > 0 &&
+                        <div className={styles.lapsContainer}>
+                            <ul className={styles.lapList}>
+                                {laps.slice(0, 3).map((lap, index) => (
+                                    <li key={index}>{lap}</li>
+                                ))}
+                                {/* Render the 3 most recent laps */}
                                 {
-                                    laps.length > 0 &&
-                                    <button onClick={clearLaps}>Clear</button>
+                                    laps.length > 3 &&
+                                    <li>
+                                        <span>({laps.length - 3} ) more laps</span>
+                                    </li>
                                 }
-                            </div>
-                        }
-                    </div>
-                }
+                            </ul>
+                            {/* Show extra laps label if there are more than 3 laps */}
+                            {
+                                laps.length > 0 &&
+                                <div className={styles.lapActionsArea}>
+                                    {laps.length > 3 && (
+                                        <div className={styles.extraLaps}>
+                                            <TButton btnType="small-rect" label="View All"  actionFunc={toggleModal} />
+                                        </div>
+                                    )}
+                                    {
+                                        laps.length > 0 &&
+                                        <TButton btnType="small-rect" label="Clear" icon="close-x" actionFunc={clearLaps} />
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
             </TimerControls>
 
             {/* Modal for Viewing All Laps */}
             {isModalOpen && (
-                <div className={styles.modalOverlay}>
-                    <div className={styles.modalContent}>
+                <Modal closeFunc={toggleModal} hasCloseBtn={true} >
                         <h2>All Laps</h2>
-                        <button className={styles.closeButton} onClick={toggleModal}>Close</button>
                         <ul className={styles.allLapsList}>
                             {laps.map((lap, index) => (
                                 <li key={index}>{lap}</li>
                             ))}
                         </ul>
-                    </div>
-                </div>
+                </Modal>
             )}
         </div>
     );

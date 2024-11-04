@@ -1,7 +1,7 @@
 import Icon from "../../Icons/Icon";
 import commonIconStyles from "../../Icons/commonIcons.module.scss";
 import type React from "react";
-import styles from "../../timers/Tabata/Tabata.module.scss";
+import styles from "../visualizations.module.scss";
 
 export interface RoundsProps {
     totalRounds: number;

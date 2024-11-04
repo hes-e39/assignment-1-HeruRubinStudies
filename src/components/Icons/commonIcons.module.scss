@@ -1,4 +1,4 @@
-.dark {
+.primaryStrokeColor{
   stroke: #010101;
 }
 
@@ -6,24 +6,24 @@
   stroke: #374665;
 }
 
-.filledDark{
+.filledPrimary{
   fill: #010101;
 }
 
-.filledLight{
+.filledHighlight{
   fill: white;
 }
 
-.filledMed{
+.filledSecondary{
   fill: #374665;
 }
 
 .selectedIcon{
-  .dark{
+  .primaryStrokeColor{
     stroke: #2BB9E5;
   }
 
-  .filledDark{
+  .filledPrimary{
     fill: #2BB9E5;
   }
 }
@@ -42,6 +42,18 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1px;
+}
+
+.strokeThin{
+  stroke-width: 1px;
+}
+
+.strokeMed{
+  stroke-width: 2px;
+}
+
+.strokeThick{
+  stroke-width: 5px;
 }
 
 .filledHighlight{

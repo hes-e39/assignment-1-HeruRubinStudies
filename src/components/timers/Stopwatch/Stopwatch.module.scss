@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.lapsControlsArea{
+  display: flex;
+  flex-direction: column;
+}
+
 .lapsContainer{
   display: flex;
   flex-direction: column;
@@ -14,6 +19,7 @@
 
 .lapActionsArea{
   display: flex;
+  gap: 0.25rem;
 }
 
 .lap-list {
@@ -50,57 +56,17 @@
   }
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 400px;
-  text-align: center;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.all-laps-list {
+.allLapsList{
   list-style-type: none;
   padding: 0;
   margin-top: 10px;
-}
-
-.all-laps-list li {
-  font-size: 1rem;
-  margin: 5px 0;
-}
-
-.close-button {
-  margin-top: 15px;
-  padding: 8px 12px;
-  background-color: #2BB9E5;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #1a8bb8;
+  overflow-y: auto;
+  max-height: 30vh;
+  li{
+    font-size: 1rem;
+    margin: 5px 0;
   }
 }
+
+

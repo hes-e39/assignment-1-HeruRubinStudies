@@ -4,6 +4,7 @@ import FormattedTimeDisplay from '../../generic/FormattedTimeDisplay';
 import TimerControls from '../../menus/TimerControls/TimerControls';
 import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage";
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
+import styles from './Countdown.module.scss';
 
 interface CountdownProps extends TimerFuncProps {
     milliseconds: number;
@@ -15,7 +16,10 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
     const [remainingTime, setRemainingTime] = useState(initialTime);
     const [isCountdownStopped, setIsCountdownStopped] = useState(false);
 
-    // Update the remaining time
+    // Calculate the progress as a percentage
+    const progressPercentage = (remainingTime / initialTime) * 100;
+
+    // Update the remaining time based on elapsed milliseconds
     useEffect(() => {
         if (!isCountdownStopped) {
             const timeLeft = initialTime - milliseconds;
@@ -28,37 +32,39 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
         }
     }, [milliseconds, initialTime, isCountdownStopped]);
 
-    // Reset the countdown when the timer is reset
-    useEffect(() => {
-        if (!isRunning && milliseconds === 0) {
-            resetCountdown();
-        }
-    }, [isRunning, milliseconds]);
-
-    // Reset and start the countdown
+    // Reset the countdown without starting it automatically
     const resetCountdown = () => {
         setRemainingTime(initialTime);
         setIsCountdownStopped(false);
-        reset(); // Reset external timer state
+        reset(); // Reset external timer state without starting
     };
 
-    const repeatTimer = ()=>{
-        reset(); // Reset external timer state
-        start(); // Start the countdown again
-    }
-
     return (
-        <div>
-            {remainingTime > 0 ? (
+        <div className={styles.countdownContainer}>
+            {
+                remainingTime > 0 &&
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
-                    <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start} />
+                    <TimerControls reset={resetCountdown} isRunning={isRunning} pause={pause} start={start}>
+                        <div className={styles.progressBarContainer}>
+                            <div
+                                className={styles.progressBar}
+                                style={{width: `${progressPercentage}%`}}
+                            />
+                        </div>
+                    </TimerControls>
                 </>
-            ) : (
+            }
+
+            {/* Show Completion Message when time is up */}
+            {remainingTime === 0 && (
                 <CompletionMessage
                     totalRounds={1}
                     roundDuration={initialTime}
-                    onRepeat={repeatTimer} // Use resetCountdown to reset and start
+                    onRepeat={() => {
+                        resetCountdown();
+                        start(); // Start the countdown only on explicit user action
+                    }}
                 />
             )}
         </div>

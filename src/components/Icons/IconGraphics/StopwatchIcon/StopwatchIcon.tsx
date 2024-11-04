@@ -8,8 +8,8 @@ const StopwatchIcon : React.FC<StylingBase> = ({classes}) => {
     return (
         <svg viewBox="0 0 60.58 60.58" width="100%" height="100%" className={`${commonStyles.icon} ${classes ?? ""}`}>
             <title>Stopwatch</title>
-            <g className={`${commonStyles.stroked} ${commonStyles.dark}`}>
-                <circle className={`${commonIconStyles.filledLight}`} cx="24.04" cy="38.38" r="20.77"/>
+            <g className={`${commonStyles.stroked} ${commonStyles.primaryStrokeColor}`}>
+                <circle className={`${commonIconStyles.filledHighlight}`} cx="24.04" cy="38.38" r="20.77"/>
                 <circle cx="24.04" cy="38.38" r="15.89"/>
                 <rect x="37.35" y="13.43" width="9.9" height="5.33" rx="1.84" ry="1.84"
                       transform="translate(19.77 -23.15) rotate(39.32)"/>

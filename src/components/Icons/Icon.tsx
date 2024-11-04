@@ -4,12 +4,14 @@ import StopwatchIcon from "./IconGraphics/StopwatchIcon/StopwatchIcon.tsx";
 import XYicon from "./IconGraphics/XYicon/XYicon.tsx";
 import TabataIcon from "./IconGraphics/TabataIcon/TabataIcon.tsx";
 import CountdownIcon from "./IconGraphics/CountdownIcon/CountdownIcon.tsx";
-import CheckmarkIcon from "./IconGraphics/Checkmark/CheckmarkIcon.tsx";
 import type {StylingBase} from "../DataInterfaces/CommonInterfaces.tsx";
 import DocumentationIcon from "./IconGraphics/DocumentationIcon/DocumentationIcon.tsx";
 import TimersIcon from "./IconGraphics/TimersIcon/TimersIcon.tsx";
+import CheckmarkIcon from "./IconGraphics/CheckmarkIcon/CheckmarkIcon.tsx";
+import CloseX from "./IconGraphics/CloseXIcon/CloseX.tsx";
+import PlusIcon from "./IconGraphics/PlusIcon/PlusIcon.tsx";
 
-export type iconGraphic = "countdown" | "stopwatch" | "xy" | "tabata" | "menu" | "timers" | "checkmark" | "documentation";
+export type iconGraphic = "countdown" | "stopwatch" | "xy" | "tabata" | "menu" | "timers" | "checkmark" | "documentation" | "close-x" | "plus";
 
 export interface IconProps extends StylingBase {
     iconName : iconGraphic;
@@ -32,6 +34,11 @@ const Icon : React.FC<IconProps> =({iconName, classes})=>{
                 return <DocumentationIcon/>;
             case "timers":
                 return <TimersIcon />
+            case "close-x":
+                return  <CloseX />
+            case "plus":
+                return <PlusIcon />
+
         }
     }
 
