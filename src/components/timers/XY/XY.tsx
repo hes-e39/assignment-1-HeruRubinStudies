@@ -8,6 +8,7 @@ import type { TimerFuncProps } from "../../menus/TimerControls/TimerControls";
 import Rounds from "../../visualization/Rounds/Rounds";
 import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage";
 import Modal from "../../generic/Modal/Modal";
+import TButton from "../../generic/Button/TButton.tsx";
 
 interface XYTimerProps extends TimerFuncProps {
     milliseconds: number;
@@ -74,7 +75,6 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
                     <TimerControls reset={resetXY} isRunning={isRunning} pause={pause} start={start}>
-                        <button onClick={toggleModal}>Configure</button>
                         <div className={commonTimerStyles.readout}>
                             <h2>Rounds Left: {roundsLeft}</h2>
                             <Rounds
@@ -84,6 +84,7 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                                 workDuration={roundDuration}
                                 remainingTime={remainingTime}
                             />
+                            <TButton label="configure" btnType="small-rect" actionFunc={toggleModal} />
                         </div>
                     </TimerControls>
                 </>
@@ -97,27 +98,28 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
 
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
-                <Modal closeFunc={toggleModal} hasCloseBtn={true}>
-                    <h2>Configure XY Timer</h2>
-                    <label>
-                        Rounds:
-                        <input
-                            type="number"
-                            value={totalRounds}
-                            onChange={(e) => setTotalRounds(Number(e.target.value))}
-                        />
-                    </label>
-                    <label>
-                        Duration per Round (ms):
-                        <input
-                            type="number"
-                            value={roundDuration}
-                            onChange={(e) => setRoundDuration(Number(e.target.value))}
-                        />
-                    </label>
-                    <div className={styles.modalButtons}>
-                        <button onClick={() => applyCustomConfig(totalRounds, roundDuration)}>Apply</button>
-                        <button onClick={toggleModal}>Cancel</button>
+                <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure XY Timer">
+                    <div className={commonTimerStyles.inputsArea}>
+                        <label>
+                            Rounds:
+                            <input
+                                type="number"
+                                value={totalRounds}
+                                onChange={(e) => setTotalRounds(Number(e.target.value))}
+                            />
+                        </label>
+                        <label>
+                            Duration per Round (ms):
+                            <input
+                                type="number"
+                                value={roundDuration}
+                                onChange={(e) => setRoundDuration(Number(e.target.value))}
+                            />
+                        </label>
+                        <div className={commonTimerStyles.modalBtns}>
+                            <TButton btnType="small-rect" actionFunc={() => applyCustomConfig(totalRounds, roundDuration)} label="Apply" />
+                            <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel" />
+                        </div>
                     </div>
                 </Modal>
             )}

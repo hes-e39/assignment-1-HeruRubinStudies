@@ -89,7 +89,6 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
                         <FormattedTimeDisplay milliseconds={remainingTime} />
                     </h2>
                     <TimerControls reset={resetTabata} isRunning={isRunning} pause={pause} start={start}>
-                        <button onClick={toggleModal}>Configure</button> {/* Configure button */}
                         <div className={commonTimerStyles.readout}>
                             <h2>Current Phase: {phase}</h2>
                             <h2>Rounds Left: {roundsLeft}</h2>
@@ -101,6 +100,7 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
                                 remainingTime={remainingTime}
                                 breakDuration={breakDuration}
                             />
+                            <TButton actionFunc={toggleModal} label="Configure" btnType="small-rect" />
                         </div>
                     </TimerControls>
                 </>
@@ -111,7 +111,7 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
                 <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure Tabata Timer" >
-                    <div className={styles.inputsArea}>
+                    <div className={commonTimerStyles.inputsArea}>
                         <label>
                             Rounds:
                             <input

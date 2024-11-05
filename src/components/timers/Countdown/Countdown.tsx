@@ -7,6 +7,7 @@ import CompletionMessage from "../../visualization/CompletionMessage/CompletionM
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
 import styles from './Countdown.module.scss';
 import commonStyles from '../../../main.module.scss';
+import commonTimerStyles from "../timer-common.module.scss";
 import Modal from "../../generic/Modal/Modal.tsx";
 import TButton from "../../generic/Button/TButton.tsx";
 
@@ -89,17 +90,19 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
                 <Modal title="Configure Countdown" closeFunc={toggleModal} hasCloseBtn={true}>
-                    <label>
-                        Duration (ms):
-                        <input
-                            type="number"
-                            value={customTime}
-                            onChange={(e) => setCustomTime(Number(e.target.value))}
-                        />
-                    </label>
-                    <div className={styles.modalButtons}>
-                        <button onClick={applyCustomTime}>Apply</button>
-                        <button onClick={toggleModal}>Cancel</button>
+                    <div className={commonTimerStyles.inputsArea}>
+                        <label>
+                            Duration (ms):
+                            <input
+                                type="number"
+                                value={customTime}
+                                onChange={(e) => setCustomTime(Number(e.target.value))}
+                            />
+                        </label>
+                        <div className={commonTimerStyles.modalBtns}>
+                            <TButton btnType="small-rect" label="Apply" actionFunc={applyCustomTime}/>
+                            <TButton btnType="small-rect" label="Cancel" actionFunc={toggleModal}/>
+                        </div>
                     </div>
                 </Modal>
             )}
