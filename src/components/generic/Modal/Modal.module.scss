@@ -20,6 +20,7 @@
 }
 .modalContent{
   background: white;
+  color: #0d1117;
   padding: 0 20px 20px 20px;
   border-radius: 8px;
   width: 80%;
@@ -27,12 +28,12 @@
   text-align: center;
   max-height: 80vh;
   overflow-y: auto;
+  h2 {
+    margin-top: 0;
+    display: flex;
+  }
 }
 
-.modal-content h2 {
-  margin-top: 0;
-  display: flex;
 
-}
 
 

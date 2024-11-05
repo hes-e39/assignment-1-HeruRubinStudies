@@ -6,7 +6,8 @@ import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay";
 import TimerControls from "../../menus/TimerControls/TimerControls";
 import type { TimerFuncProps } from "../../menus/TimerControls/TimerControls";
 import Rounds from "../../visualization/Rounds/Rounds";
-import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage.tsx";
+import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage";
+import Modal from "../../generic/Modal/Modal";
 
 interface XYTimerProps extends TimerFuncProps {
     milliseconds: number;
@@ -14,27 +15,35 @@ interface XYTimerProps extends TimerFuncProps {
 }
 
 const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, start }) => {
-    const totalRounds = 6;
-    const roundDuration = 4000;
+    const [totalRounds, setTotalRounds] = useState(6); // Default rounds
+    const [roundDuration, setRoundDuration] = useState(4000); // Default round duration in ms
 
     const [roundsLeft, setRoundsLeft] = useState(totalRounds);
     const [roundStartTime, setRoundStartTime] = useState(0);
     const [remainingTime, setRemainingTime] = useState(roundDuration);
     const [isXYStopped, setIsXYStopped] = useState(false);
     const [completedRounds, setCompletedRounds] = useState<number[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-        if (milliseconds === 0 && !isRunning) {
-            resetXY();
-        }
-    }, [milliseconds, isRunning]);
-
+    // Reset function
     const resetXY = () => {
         setRoundsLeft(totalRounds);
         setRoundStartTime(0);
         setRemainingTime(roundDuration);
         setIsXYStopped(false);
         setCompletedRounds([]);
+        reset(); // Reset external timer state
+    };
+
+    // Open or close the modal
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+    // Apply custom configuration from modal
+    const applyCustomConfig = (customRounds: number, customDuration: number) => {
+        setTotalRounds(customRounds);
+        setRoundDuration(customDuration);
+        resetXY(); // Reset with new settings
+        setIsModalOpen(false); // Close the modal
     };
 
     useEffect(() => {
@@ -57,14 +66,15 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                 setRemainingTime(timeLeft);
             }
         }
-    }, [milliseconds, isRunning, isXYStopped, roundsLeft, roundStartTime]);
+    }, [milliseconds, isRunning, isXYStopped, roundsLeft, roundStartTime, roundDuration, totalRounds]);
 
     return (
         <div className={styles.actionArea}>
             {roundsLeft > 0 ? (
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
-                    <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
+                    <TimerControls reset={resetXY} isRunning={isRunning} pause={pause} start={start}>
+                        <button onClick={toggleModal}>Configure</button>
                         <div className={commonTimerStyles.readout}>
                             <h2>Rounds Left: {roundsLeft}</h2>
                             <Rounds
@@ -83,6 +93,33 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                     roundDuration={roundDuration}
                     onRepeat={resetXY}
                 />
+            )}
+
+            {/* Modal for Configuring Timer */}
+            {isModalOpen && (
+                <Modal closeFunc={toggleModal} hasCloseBtn={true}>
+                    <h2>Configure XY Timer</h2>
+                    <label>
+                        Rounds:
+                        <input
+                            type="number"
+                            value={totalRounds}
+                            onChange={(e) => setTotalRounds(Number(e.target.value))}
+                        />
+                    </label>
+                    <label>
+                        Duration per Round (ms):
+                        <input
+                            type="number"
+                            value={roundDuration}
+                            onChange={(e) => setRoundDuration(Number(e.target.value))}
+                        />
+                    </label>
+                    <div className={styles.modalButtons}>
+                        <button onClick={() => applyCustomConfig(totalRounds, roundDuration)}>Apply</button>
+                        <button onClick={toggleModal}>Cancel</button>
+                    </div>
+                </Modal>
             )}
         </div>
     );
