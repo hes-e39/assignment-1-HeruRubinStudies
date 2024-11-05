@@ -15,9 +15,10 @@ interface CountdownProps extends TimerFuncProps {
     milliseconds: number;
     isRunning: boolean;
     initialTime: number; // The initial countdown time in milliseconds
+    classes? : string;
 }
 
-const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialTime, reset, pause, start }) => {
+const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialTime, reset, pause, start, classes }) => {
     const [customTime, setCustomTime] = useState(initialTime); // State to hold custom time input
     const [remainingTime, setRemainingTime] = useState(customTime ?? initialTime);
     const [isCountdownStopped, setIsCountdownStopped] = useState(false);
@@ -59,7 +60,7 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
     };
 
     return (
-        <div className={styles.countdownContainer}>
+        <div className={`${styles.countdownContainer} ${classes ?? ""}`}>
             {remainingTime >= 0 ? (
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />

@@ -3,9 +3,10 @@ import commonStyles from "../../common-styles/common-styles.module.scss"
 
 interface FormattedTimeDisplayProps {
     milliseconds: number;
+    classes? : string;
 }
 
-const FormattedTimeDisplay : React.FC<FormattedTimeDisplayProps> = ({milliseconds })=>{
+const FormattedTimeDisplay : React.FC<FormattedTimeDisplayProps> = ({milliseconds, classes })=>{
     const totalHundredths = Math.floor(milliseconds / 10);
     const hundredths = totalHundredths % 100;
     const seconds = Math.floor(totalHundredths / 100) % 60;
@@ -43,7 +44,7 @@ const FormattedTimeDisplay : React.FC<FormattedTimeDisplayProps> = ({millisecond
     }
 
     return(
-        <div className={`${commonStyles.timerDisplay} ${commonStyles.fontBold}`}>
+        <div className={`${commonStyles.timerDisplay} ${commonStyles.fontBold} ${classes ?? ""}`}>
             {time()}
         </div>
     )

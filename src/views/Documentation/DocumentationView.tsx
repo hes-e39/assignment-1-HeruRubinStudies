@@ -11,6 +11,7 @@ import Countdown from "../../components/timers/Countdown/Countdown.tsx";
 import StopWatch from "../../components/timers/Stopwatch/Stopwatch.tsx";
 import Tabata from "../../components/timers/Tabata/Tabata.tsx";
 import XY from "../../components/timers/XY/XY.tsx";
+import Logotype from "../../components/Graphics/Branding/Logotype/Logotype.tsx";
 
 
 
@@ -22,6 +23,12 @@ const Documentation = () => {
 
       <div className={styles.mainDocView}>
         <h2>Documentation</h2>
+          <div className={styles.branding}>
+              <Logotype />
+              <p>
+                  Tempomo - The name I came up with for this product is a combination of Tempo and Momentum. A fun brand that has a name that's fun to say.
+              </p>
+          </div>
         <DocumentComponent
           title="Loading spinner "
           component={<Loading size="medium" color="#ffa2bf" />}
@@ -134,7 +141,7 @@ const Documentation = () => {
 
           <DocumentComponent
               title="FormattedTimeDisplay"
-              component={<FormattedTimeDisplay milliseconds={3605000} />}
+              component={<FormattedTimeDisplay milliseconds={3605000} classes={styles.timer} />}
               propDocs={[
                   {
                       prop: "milliseconds",
@@ -239,6 +246,7 @@ const Documentation = () => {
                       reset={() => console.log("Reset Countdown")}
                       pause={() => console.log("Pause Countdown")}
                       start={() => console.log("Start Countdown")}
+                      classes={styles.timer}
                   />
               }
               propDocs={[
@@ -290,6 +298,7 @@ const Documentation = () => {
                       reset={() => console.log("Reset Stopwatch")}
                       pause={() => console.log("Pause Stopwatch")}
                       start={() => console.log("Start Stopwatch")}
+                      classes={styles.timer}
                   />
               }
               propDocs={[
@@ -334,6 +343,7 @@ const Documentation = () => {
                       reset={() => console.log("Reset Tabata")}
                       pause={() => console.log("Pause Tabata")}
                       start={() => console.log("Start Tabata")}
+                      classes={styles.timer}
                   />
               }
               propDocs={[
@@ -379,6 +389,7 @@ const Documentation = () => {
                       reset={() => console.log("Reset XY Timer")}
                       pause={() => console.log("Pause XY Timer")}
                       start={() => console.log("Start XY Timer")}
+                      classes={styles.timer}
                   />
               }
               propDocs={[

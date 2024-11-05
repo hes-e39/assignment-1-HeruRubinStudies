@@ -13,9 +13,10 @@ import TButton from "../../generic/Button/TButton.tsx";
 interface XYTimerProps extends TimerFuncProps {
     milliseconds: number;
     isRunning: boolean;
+    classes? : string
 }
 
-const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, start }) => {
+const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, start, classes }) => {
     const [totalRounds, setTotalRounds] = useState(6); // Default rounds
     const [roundDuration, setRoundDuration] = useState(4000); // Default round duration in ms
 
@@ -70,7 +71,7 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
     }, [milliseconds, isRunning, isXYStopped, roundsLeft, roundStartTime, roundDuration, totalRounds]);
 
     return (
-        <div className={styles.actionArea}>
+        <div className={`${styles.actionArea} ${ classes ?? ""}`}>
             {roundsLeft > 0 ? (
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />

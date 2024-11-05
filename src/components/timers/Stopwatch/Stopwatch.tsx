@@ -11,9 +11,10 @@ import TButton from "../../generic/Button/TButton.tsx";
 interface StopWatchProps extends TimerFuncProps {
     milliseconds: number;
     isRunning: boolean;
+    classes? : string;
 }
 
-const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, pause, start }) => {
+const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, pause, start, classes }) => {
     const [laps, setLaps] = useState<string[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -41,7 +42,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     return (
-        <div className={styles.stopwatchContainer}>
+        <div className={`${styles.stopwatchContainer} ${classes ?? ""}`}>
             <FormattedTimeDisplay milliseconds={milliseconds} />
             <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
                 <div className={styles.lapsControlsArea}>
