@@ -10,6 +10,7 @@ import TimersIcon from "./IconGraphics/TimersIcon/TimersIcon.tsx";
 import CheckmarkIcon from "./IconGraphics/CheckmarkIcon/CheckmarkIcon.tsx";
 import CloseX from "./IconGraphics/CloseXIcon/CloseX.tsx";
 import PlusIcon from "./IconGraphics/PlusIcon/PlusIcon.tsx";
+import MenuIcon from "./IconGraphics/MenuIcon/MenuIcon.tsx";
 
 export type iconGraphic = "countdown" | "stopwatch" | "xy" | "tabata" | "menu" | "timers" | "checkmark" | "documentation" | "close-x" | "plus";
 
@@ -38,7 +39,8 @@ const Icon : React.FC<IconProps> =({iconName, classes})=>{
                 return  <CloseX />
             case "plus":
                 return <PlusIcon />
-
+            case "menu":
+                return <MenuIcon />
         }
     }
 
