@@ -8,6 +8,7 @@ import Tabata from "../../components/timers/Tabata/Tabata.tsx";
 import TabMenu, {type MenuItem} from "../../components/menus/TabMenu/TabMenu.tsx";
 import styles from "./TimersView.module.scss";
 import commonStyles from "../../common-styles/common-styles.module.scss"
+import mainStyles from "../../main.module.scss";
 
 
 type timerType = "XY" | "Stopwatch" | "Countdown" | "Tabata";
@@ -51,7 +52,7 @@ const Timer: React.FC = () => {
     const [activeTimer, setActiveTimer] = useState<timerType>("Stopwatch");
 
     return (
-        <div className={`${styles.outerContainer} ${commonStyles.flexVert} ${commonStyles.flexVertCenter}`}>
+        <div className={`${mainStyles.mainContainer} ${commonStyles.flexVertCenter} ${commonStyles.flexVert} ${commonStyles.flexHorzCenter}`}>
             <div>
                 {activeTimer === "Stopwatch" && (
                     <Stopwatch milliseconds={milliseconds} isRunning={isRunning}  start={start} pause={pause} reset={reset}  />

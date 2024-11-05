@@ -1,0 +1,16 @@
+.mainDocView{
+  padding-top: 20%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  h2{
+    font-size: 2rem;
+  }
+  .modal{
+    position: relative;
+    z-index: 0;
+  }
+}

@@ -8,11 +8,12 @@ export interface ModalProps {
     hasCloseBtn?: boolean;
     closeFunc?: () => void;
     title?: string;
+    classes?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, hasCloseBtn, closeFunc, title }) => {
+const Modal: React.FC<ModalProps> = ({ children, hasCloseBtn, closeFunc, title, classes }) => {
     return (
-        <div className={styles.modalOverlay}>
+        <div className={`${styles.modalOverlay} ${classes ?? ''}`}>
             <div className={styles.modalContent}>
                 <div className={styles.titleBar}>
                     {hasCloseBtn && <TButton classes={commonStyles.spacer} btnType="round-small" icon="close-x" />}

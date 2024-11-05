@@ -20,9 +20,18 @@ const NavigationMenu: React.FC<MenuProps> = ({children}) => {
         <>
             <div className={styles.navigationContainer}>
                 <div className={styles.logoArea}>
-                    <button className={styles.menuButton} onClick={toggleMenu}>
-                        <Icon iconName="menu" classes={styles.iconContainer}/>
-                    </button>
+                    {
+                        !isOpen &&
+                        <button className={styles.menuButton} onClick={toggleMenu}>
+                            <Icon iconName="menu" classes={styles.iconContainer}/>
+                        </button>
+                    }
+                    {
+                        isOpen &&
+                        <button className={styles.menuButton} onClick={toggleMenu}>
+                            <Icon iconName="close-x" classes={styles.iconContainer}/>
+                        </button>
+                    }
                     <div className={styles.logoType}>
                         <Logotype/>
                     </div>

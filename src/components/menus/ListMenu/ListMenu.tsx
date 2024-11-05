@@ -8,16 +8,17 @@ import {Link} from "react-router-dom";
 interface MenuItem {
     label: string;
     link: string;
-    iconName?: iconGraphic; // Optional icon name
+    iconName?: iconGraphic;
 }
 
 interface GenericListMenuProps {
     menuItems: MenuItem[];
+    classes?: string;
 }
 
-const GenericListMenu: React.FC<GenericListMenuProps> = ({ menuItems }) => {
+const GenericListMenu: React.FC<GenericListMenuProps> = ({ menuItems, classes }) => {
     return (
-        <ul className={styles.listContainer}>
+        <ul className={`${styles.listContainer} ${classes}`}>
             {menuItems.map((item, index) => (
                 <li key={index} className={styles.listItem}>
                     <Link to={item.link} className={styles.link}>
