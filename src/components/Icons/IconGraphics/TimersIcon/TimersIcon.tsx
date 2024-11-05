@@ -8,7 +8,7 @@ const TimersIcon : React.FC=()=>{
                 <g className={`${commonIconStyles.stroked} ${commonIconStyles.primaryStrokeColor}`}>
                     <circle cx="30.29" cy="30.29"
                             r="26.98"/>
-                    <path className="cls-2"
+                    <path className="brandSecondary"
                           d="M18.67,18.68l6.86,13.84c.95,1.91,2.85,3.26,4.99,3.26,1.54,0,3.07-.59,4.24-1.76.15-.15.28-.3.41-.46,2.39-2.94,1.06-7.4-2.43-8.89l-14.07-6.01Z"/>
                 </g>
                 <g className={`${commonIconStyles.filledPrimary} `}>
